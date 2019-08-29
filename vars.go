@@ -4,6 +4,13 @@ import "net/http"
 
 var sessionCookies []*http.Cookie
 
+// IPAssignmentActions contains all valid action values for IP Assignment
+var IPAssignmentActions = []string{
+	"MAKE_STATIC",
+	"MAKE_RESERVED",
+	"MAKE_DHCP_RESERVED",
+}
+
 // ObjectTypes contains all valid object types in the BlueCat API
 var ObjectTypes = []string{
 	"Entity",
