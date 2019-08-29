@@ -1,5 +1,9 @@
 package bam
 
+import "net/http"
+
+var sessionCookies []*http.Cookie
+
 // ObjectTypes contains all valid object types in the BlueCat API
 var ObjectTypes = []string{
 	"Entity",
