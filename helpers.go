@@ -24,6 +24,19 @@ func LogoutClientIfError(client ProteusAPI, err error, msg string) error {
 	return nil
 }
 
+// LogoutClientWithError will log out the client session with the specified error message
+func LogoutClientWithError(client ProteusAPI, msg string) error {
+	var result error
+	err := fmt.Errorf(msg)
+	result = multierror.Append(err)
+
+	if lerr := client.Logout(); lerr != nil {
+		result = multierror.Append(lerr)
+	}
+	log.Printf("[INFO] BlueCat Logout was successful")
+	return result
+}
+
 // Client logs you in to BAM and keeps your session cookie
 func Client(username string, password string, endpoint string) (ProteusAPI, error) {
 	//var response *http.Response
