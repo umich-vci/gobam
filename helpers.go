@@ -1,4 +1,4 @@
-package bam
+package gobam
 
 import (
 	"fmt"
