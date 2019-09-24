@@ -4,6 +4,12 @@ import "net/http"
 
 var sessionCookies []*http.Cookie
 
+// EnableOrDisable contains the valid options for settings that must be Enabled or Disabled
+var EnableOrDisable = []string{
+	"Enable",
+	"Disable",
+}
+
 // TraversalMethodology contains all valid traversal methodologies
 var TraversalMethodology = []string{
 	"NO_TRAVERSAL",
