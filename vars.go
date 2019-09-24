@@ -4,6 +4,13 @@ import "net/http"
 
 var sessionCookies []*http.Cookie
 
+// TraversalMethodology contains all valid traversal methodologies
+var TraversalMethodology = []string{
+	"NO_TRAVERSAL",
+	"DEPTH_FIRST",
+	"BREADTH_FIRST",
+}
+
 // IPAssignmentActions contains all valid action values for IP Assignment
 var IPAssignmentActions = []string{
 	"MAKE_STATIC",
