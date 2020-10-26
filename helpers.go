@@ -1,6 +1,7 @@
 package gobam
 
 import (
+	"crypto/tls"
 	"fmt"
 	"log"
 	"net/http"
@@ -38,7 +39,7 @@ func LogoutClientWithError(client ProteusAPI, msg string) error {
 }
 
 // Client logs you in to BAM and keeps your session cookie
-func Client(username string, password string, endpoint string) (ProteusAPI, error) {
+func Client(username string, password string, endpoint string, insecure bool) (ProteusAPI, error) {
 	//var response *http.Response
 	cli := soap.Client{
 		URL:       "https://" + endpoint + "/Services/API?wsdl",
@@ -46,6 +47,15 @@ func Client(username string, password string, endpoint string) (ProteusAPI, erro
 		Pre:       setBlueCatAuthToken,
 		Post:      getBlueCatAuthToken,
 	}
+
+	if insecure {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client := &http.Client{Transport: tr}
+		cli.Config = client
+	}
+
 	soapService := NewProteusAPI(&cli)
 	log.Printf("[INFO] BlueCat URL is: %s", cli.URL)
 	err := soapService.Login(username, password)
