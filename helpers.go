@@ -67,6 +67,29 @@ func Client(username string, password string, endpoint string, insecure bool) (P
 	return soapService, nil
 }
 
+// NewClient creates a client without a login
+func NewClient(endpoint string, insecure bool) ProteusAPI {
+	//var response *http.Response
+	cli := soap.Client{
+		URL:       "https://" + endpoint + "/Services/API?wsdl",
+		Namespace: Namespace,
+		Pre:       setBlueCatAuthToken,
+		Post:      getBlueCatAuthToken,
+	}
+
+	if insecure {
+		tr := &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		}
+		client := &http.Client{Transport: tr}
+		cli.Config = client
+	}
+
+	soapService := NewProteusAPI(&cli)
+
+	return soapService
+}
+
 func setBlueCatAuthToken(request *http.Request) {
 	//a session cookie is required for all calls except Login
 	for i := range sessionCookies {
