@@ -115,31 +115,31 @@ func ParseIP4NetworkProperties(properties string) (IP4NetworkProperties, error) 
 			case "inheritAllowDuplicateHost":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing inheritAllowDuplicateHost to bool")
+					return networkProperties, fmt.Errorf("error parsing inheritAllowDuplicateHost to bool")
 				}
 				networkProperties.InheritAllowDuplicateHost = b
 			case "inheritPingBeforeAssign":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing inheritPingBeforeAssign to bool")
+					return networkProperties, fmt.Errorf("error parsing inheritPingBeforeAssign to bool")
 				}
 				networkProperties.InheritPingBeforeAssign = b
 			case "inheritDNSRestrictions":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing inheritDNSRestrictions to bool")
+					return networkProperties, fmt.Errorf("error parsing inheritDNSRestrictions to bool")
 				}
 				networkProperties.InheritDNSRestrictions = b
 			case "inheritDefaultDomains":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing inheritDefaultDomains to bool")
+					return networkProperties, fmt.Errorf("error parsing inheritDefaultDomains to bool")
 				}
 				networkProperties.InheritDefaultDomains = b
 			case "inheritDefaultView":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing inheritDefaultView to bool")
+					return networkProperties, fmt.Errorf("error parsing inheritDefaultView to bool")
 				}
 				networkProperties.InheritDefaultView = b
 			case "locationCode":
@@ -147,7 +147,7 @@ func ParseIP4NetworkProperties(properties string) (IP4NetworkProperties, error) 
 			case "locationInherited":
 				b, err := strconv.ParseBool(val)
 				if err != nil {
-					return networkProperties, fmt.Errorf("Error parsing locationInherited to bool")
+					return networkProperties, fmt.Errorf("error parsing locationInherited to bool")
 				}
 				networkProperties.LocationInherited = b
 			default:
