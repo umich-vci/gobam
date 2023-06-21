@@ -131,6 +131,9 @@ type ProteusAPI interface {
 	// AddIP4ReconciliationPolicy was auto-generated from WSDL.
 	AddIP4ReconciliationPolicy(parentId int64, name string, properties string) (int64, error)
 
+	// AddIP4Template was auto-generated from WSDL.
+	AddIP4Template(configurationId int64, name string, properties string) (int64, error)
+
 	// AddIP6Address was auto-generated from WSDL.
 	AddIP6Address(containerId int64, address string, _type string, name string, properties string) (int64, error)
 
@@ -206,6 +209,9 @@ type ProteusAPI interface {
 	// AddUserDefinedField was auto-generated from WSDL.
 	AddUserDefinedField(_type string, udf *APIUserDefinedField) error
 
+	// AddUserDefinedLink was auto-generated from WSDL.
+	AddUserDefinedLink(addLinkDefinitionJson string) error
+
 	// AddUserGroup was auto-generated from WSDL.
 	AddUserGroup(name string, properties string) (int64, error)
 
@@ -227,11 +233,17 @@ type ProteusAPI interface {
 	// ApplyIP4NetworkTemplate was auto-generated from WSDL.
 	ApplyIP4NetworkTemplate(templateId int64, networkId int64, properties string) (string, error)
 
+	// ApplyIP4Template was auto-generated from WSDL.
+	ApplyIP4Template(templateId int64, recipientId int64, properties string) (string, error)
+
 	// AssignIP4Address was auto-generated from WSDL.
 	AssignIP4Address(configurationId int64, ip4Address string, macAddress string, hostInfo string, action string, properties string) (int64, error)
 
 	// AssignIP4NetworkTemplate was auto-generated from WSDL.
 	AssignIP4NetworkTemplate(networkId int64, templateId int64, properties string) error
+
+	// AssignIP4Template was auto-generated from WSDL.
+	AssignIP4Template(templateRecipientId int64, templateId int64, properties string) error
 
 	// AssignIP6Address was auto-generated from WSDL.
 	AssignIP6Address(containerId int64, address string, action string, macAddress string, hostInfo string, properties string) (bool, error)
@@ -257,8 +269,14 @@ type ProteusAPI interface {
 	// ClearIP6Address was auto-generated from WSDL.
 	ClearIP6Address(addressId int64) (bool, error)
 
+	// ConfigureAuditLogExport was auto-generated from WSDL.
+	ConfigureAuditLogExport(auditConfiguration string) error
+
 	// ConfigureReplication was auto-generated from WSDL.
 	ConfigureReplication(standbyServer string, compressReplication bool, replicationQueueThreshold int64, replicationBreakThreshold int64, properties string) error
+
+	// ConfigureServerServices was auto-generated from WSDL.
+	ConfigureServerServices(serverIds *LongArray, configuration string) (string, error)
 
 	// ConfigureStreamingReplication was auto-generated from WSDL.
 	ConfigureStreamingReplication(standbyServer string, compressReplication bool, latencyWarningThreshold int64, latencyCriticalThreshold int64, properties string) error
@@ -311,6 +329,9 @@ type ProteusAPI interface {
 	// DeleteUserDefinedField was auto-generated from WSDL.
 	DeleteUserDefinedField(_type string, name string) error
 
+	// DeleteUserDefinedLink was auto-generated from WSDL.
+	DeleteUserDefinedLink(deleteLinkDefinitionJson string) error
+
 	// DeleteWithOptions was auto-generated from WSDL.
 	DeleteWithOptions(objectId int64, options string) error
 
@@ -358,6 +379,9 @@ type ProteusAPI interface {
 
 	// GetAllUsedLocations was auto-generated from WSDL.
 	GetAllUsedLocations() (*APIEntityArray, error)
+
+	// GetAuditLogExportStatus was auto-generated from WSDL.
+	GetAuditLogExportStatus() (string, error)
 
 	// GetConfigurationGroups was auto-generated from WSDL.
 	GetConfigurationGroups() (*StringArray, error)
@@ -477,8 +501,17 @@ type ProteusAPI interface {
 	// GetKSK was auto-generated from WSDL.
 	GetKSK(entityId int64, format string) (*StringArray, error)
 
+	// GetLatestMigrationLog was auto-generated from WSDL.
+	GetLatestMigrationLog() (string, error)
+
 	// GetLinkedEntities was auto-generated from WSDL.
 	GetLinkedEntities(entityId int64, _type string, start int, count int) (*APIEntityArray, error)
+
+	// GetLinkedEntitiesEx was auto-generated from WSDL.
+	GetLinkedEntitiesEx(getLinkedEntitiesJson string) (string, error)
+
+	// GetLinkedIP4ObjectConflicts was auto-generated from WSDL.
+	GetLinkedIP4ObjectConflicts(templateId int64, entityId int64) (string, error)
 
 	// GetLinkedNetworkConflicts was auto-generated from WSDL.
 	GetLinkedNetworkConflicts(templateId int64, networkId int64) (string, error)
@@ -503,6 +536,9 @@ type ProteusAPI interface {
 
 	// GetNextAvailableIP4Network was auto-generated from WSDL.
 	GetNextAvailableIP4Network(parentId int64, size int64, isLargerAllowed bool, autoCreate bool) (int64, error)
+
+	// GetNextAvailableIP6Address was auto-generated from WSDL.
+	GetNextAvailableIP6Address(parentId int64, properties string) (string, error)
 
 	// GetNextAvailableIPRange was auto-generated from WSDL.
 	GetNextAvailableIPRange(parentId int64, size int64, _type string, properties string) (*APIEntity, error)
@@ -534,6 +570,13 @@ type ProteusAPI interface {
 	// GetServerForRole was auto-generated from WSDL.
 	GetServerForRole(roleId int64) (*APIEntity, error)
 
+	// GetServerServices was auto-generated from WSDL.
+	GetServerServices(serverId int64) (string, error)
+
+	// GetServerServicesConfigurationStatus was auto-generated from
+	// WSDL.
+	GetServerServicesConfigurationStatus(configurationToken string) (string, error)
+
 	// GetSharedNetworks was auto-generated from WSDL.
 	GetSharedNetworks(tagId int64) (*APIEntityArray, error)
 
@@ -545,6 +588,9 @@ type ProteusAPI interface {
 
 	// GetUserDefinedFields was auto-generated from WSDL.
 	GetUserDefinedFields(_type string, requiredFieldsOnly bool) (*APIUserDefinedFieldArray, error)
+
+	// GetUserDefinedLink was auto-generated from WSDL.
+	GetUserDefinedLink(getLinkDefinitionJson string) (string, error)
 
 	// GetZonesByHint was auto-generated from WSDL.
 	GetZonesByHint(containerId int64, start int, count int, options string) (*APIEntityArray, error)
@@ -560,6 +606,9 @@ type ProteusAPI interface {
 
 	// LinkEntities was auto-generated from WSDL.
 	LinkEntities(entity1Id int64, entity2Id int64, properties string) error
+
+	// LinkEntitiesEx was auto-generated from WSDL.
+	LinkEntitiesEx(linkEntitiesJson string) error
 
 	// Login was auto-generated from WSDL.
 	Login(username string, password string) error
@@ -651,8 +700,14 @@ type ProteusAPI interface {
 	// UnassignIP4NetworkTemplate was auto-generated from WSDL.
 	UnassignIP4NetworkTemplate(networkId int64, templateId int64, properties string) error
 
+	// UnassignIP4Template was auto-generated from WSDL.
+	UnassignIP4Template(templateRecipientId int64, templateId int64, properties string) error
+
 	// UnlinkEntities was auto-generated from WSDL.
 	UnlinkEntities(entity1Id int64, entity2Id int64, properties string) error
+
+	// UnlinkEntitiesEx was auto-generated from WSDL.
+	UnlinkEntitiesEx(unlinkEntitiesJson string) error
 
 	// UnshareNetwork was auto-generated from WSDL.
 	UnshareNetwork(networkId int64) error
@@ -705,14 +760,26 @@ type ProteusAPI interface {
 	// UpdateRawDeploymentOption was auto-generated from WSDL.
 	UpdateRawDeploymentOption(option *APIDeploymentOption) error
 
+	// UpdateRetentionSettings was auto-generated from WSDL.
+	UpdateRetentionSettings(admin int, updateAdmin bool, sessionEvent int, updateSessionEvent bool, ddns int, updateDdns bool, dhcp int, updateDhcp bool) (*IntArray, error)
+
 	// UpdateUserDefinedField was auto-generated from WSDL.
 	UpdateUserDefinedField(_type string, udf *APIUserDefinedField) error
+
+	// UpdateUserDefinedLink was auto-generated from WSDL.
+	UpdateUserDefinedLink(updateLinkDefinitionJson string) error
 
 	// UpdateUserPassword was auto-generated from WSDL.
 	UpdateUserPassword(userId int64, newPassword string, options *StringArray) error
 
 	// UpdateWithOptions was auto-generated from WSDL.
 	UpdateWithOptions(entity *APIEntity, options string) error
+
+	// UploadMigrationFile was auto-generated from WSDL.
+	UploadMigrationFile(filename string, data []byte) error
+
+	// UploadResponsePolicyFile was auto-generated from WSDL.
+	UploadResponsePolicyFile(parentId int64, data []byte) ([]byte, error)
 
 	// UploadResponsePolicyItems was auto-generated from WSDL.
 	UploadResponsePolicyItems(parentId int64, data []byte) error
@@ -811,6 +878,11 @@ type ResponsePolicySearchResult struct {
 // ResponsePolicySearchResultArray was auto-generated from WSDL.
 type ResponsePolicySearchResultArray struct {
 	Item []*ResponsePolicySearchResult `xml:"item,omitempty" json:"item,omitempty" yaml:"item,omitempty"`
+}
+
+// IntArray was auto-generated from WSDL.
+type IntArray struct {
+	Item []*int `xml:"item,omitempty" json:"item,omitempty" yaml:"item,omitempty"`
 }
 
 // LongArray was auto-generated from WSDL.
@@ -1425,6 +1497,20 @@ type OperationAddIP4ReconciliationPolicyResponse struct {
 	Return *int64 `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
+// Operation wrapper for AddIP4Template.
+// OperationAddIP4Template was auto-generated from WSDL.
+type OperationAddIP4Template struct {
+	ConfigurationId *int64  `xml:"configurationId,omitempty" json:"configurationId,omitempty" yaml:"configurationId,omitempty"`
+	Name            *string `xml:"name,omitempty" json:"name,omitempty" yaml:"name,omitempty"`
+	Properties      *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
+}
+
+// Operation wrapper for AddIP4Template.
+// OperationAddIP4TemplateResponse was auto-generated from WSDL.
+type OperationAddIP4TemplateResponse struct {
+	Return *int64 `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
 // Operation wrapper for AddIP6Address.
 // OperationAddIP6Address was auto-generated from WSDL.
 type OperationAddIP6Address struct {
@@ -1816,6 +1902,18 @@ type OperationAddUserDefinedField struct {
 type OperationAddUserDefinedFieldResponse struct {
 }
 
+// Operation wrapper for AddUserDefinedLink.
+// OperationAddUserDefinedLink was auto-generated from WSDL.
+type OperationAddUserDefinedLink struct {
+	AddLinkDefinitionJson *string `xml:"addLinkDefinitionJson,omitempty" json:"addLinkDefinitionJson,omitempty" yaml:"addLinkDefinitionJson,omitempty"`
+}
+
+// Operation wrapper for AddUserDefinedLink.
+// OperationAddUserDefinedLinkResponse was auto-generated from
+// WSDL.
+type OperationAddUserDefinedLinkResponse struct {
+}
+
 // Operation wrapper for AddUserGroup.
 // OperationAddUserGroup was auto-generated from WSDL.
 type OperationAddUserGroup struct {
@@ -1920,6 +2018,20 @@ type OperationApplyIP4NetworkTemplateResponse struct {
 	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
+// Operation wrapper for ApplyIP4Template.
+// OperationApplyIP4Template was auto-generated from WSDL.
+type OperationApplyIP4Template struct {
+	TemplateId  *int64  `xml:"templateId,omitempty" json:"templateId,omitempty" yaml:"templateId,omitempty"`
+	RecipientId *int64  `xml:"recipientId,omitempty" json:"recipientId,omitempty" yaml:"recipientId,omitempty"`
+	Properties  *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
+}
+
+// Operation wrapper for ApplyIP4Template.
+// OperationApplyIP4TemplateResponse was auto-generated from WSDL.
+type OperationApplyIP4TemplateResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
 // Operation wrapper for AssignIP4Address.
 // OperationAssignIP4Address was auto-generated from WSDL.
 type OperationAssignIP4Address struct {
@@ -1949,6 +2061,19 @@ type OperationAssignIP4NetworkTemplate struct {
 // OperationAssignIP4NetworkTemplateResponse was auto-generated
 // from WSDL.
 type OperationAssignIP4NetworkTemplateResponse struct {
+}
+
+// Operation wrapper for AssignIP4Template.
+// OperationAssignIP4Template was auto-generated from WSDL.
+type OperationAssignIP4Template struct {
+	TemplateRecipientId *int64  `xml:"templateRecipientId,omitempty" json:"templateRecipientId,omitempty" yaml:"templateRecipientId,omitempty"`
+	TemplateId          *int64  `xml:"templateId,omitempty" json:"templateId,omitempty" yaml:"templateId,omitempty"`
+	Properties          *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
+}
+
+// Operation wrapper for AssignIP4Template.
+// OperationAssignIP4TemplateResponse was auto-generated from WSDL.
+type OperationAssignIP4TemplateResponse struct {
 }
 
 // Operation wrapper for AssignIP6Address.
@@ -2059,6 +2184,18 @@ type OperationClearIP6AddressResponse struct {
 	Return *bool `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
+// Operation wrapper for ConfigureAuditLogExport.
+// OperationConfigureAuditLogExport was auto-generated from WSDL.
+type OperationConfigureAuditLogExport struct {
+	AuditConfiguration *string `xml:"auditConfiguration,omitempty" json:"auditConfiguration,omitempty" yaml:"auditConfiguration,omitempty"`
+}
+
+// Operation wrapper for ConfigureAuditLogExport.
+// OperationConfigureAuditLogExportResponse was auto-generated
+// from WSDL.
+type OperationConfigureAuditLogExportResponse struct {
+}
+
 // Operation wrapper for ConfigureReplication.
 // OperationConfigureReplication was auto-generated from WSDL.
 type OperationConfigureReplication struct {
@@ -2073,6 +2210,20 @@ type OperationConfigureReplication struct {
 // OperationConfigureReplicationResponse was auto-generated from
 // WSDL.
 type OperationConfigureReplicationResponse struct {
+}
+
+// Operation wrapper for ConfigureServerServices.
+// OperationConfigureServerServices was auto-generated from WSDL.
+type OperationConfigureServerServices struct {
+	ServerIds     *LongArray `xml:"serverIds,omitempty" json:"serverIds,omitempty" yaml:"serverIds,omitempty"`
+	Configuration *string    `xml:"configuration,omitempty" json:"configuration,omitempty" yaml:"configuration,omitempty"`
+}
+
+// Operation wrapper for ConfigureServerServices.
+// OperationConfigureServerServicesResponse was auto-generated
+// from WSDL.
+type OperationConfigureServerServicesResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for ConfigureStreamingReplication.
@@ -2319,6 +2470,18 @@ type OperationDeleteUserDefinedField struct {
 type OperationDeleteUserDefinedFieldResponse struct {
 }
 
+// Operation wrapper for DeleteUserDefinedLink.
+// OperationDeleteUserDefinedLink was auto-generated from WSDL.
+type OperationDeleteUserDefinedLink struct {
+	DeleteLinkDefinitionJson *string `xml:"deleteLinkDefinitionJson,omitempty" json:"deleteLinkDefinitionJson,omitempty" yaml:"deleteLinkDefinitionJson,omitempty"`
+}
+
+// Operation wrapper for DeleteUserDefinedLink.
+// OperationDeleteUserDefinedLinkResponse was auto-generated from
+// WSDL.
+type OperationDeleteUserDefinedLinkResponse struct {
+}
+
 // Operation wrapper for DeleteWithOptions.
 // OperationDeleteWithOptions was auto-generated from WSDL.
 type OperationDeleteWithOptions struct {
@@ -2525,6 +2688,13 @@ type OperationGetAliasesByHintResponse struct {
 // WSDL.
 type OperationGetAllUsedLocationsResponse struct {
 	Return *APIEntityArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetAuditLogExportStatus.
+// OperationGetAuditLogExportStatusResponse was auto-generated
+// from WSDL.
+type OperationGetAuditLogExportStatusResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for GetConfigurationGroups.
@@ -3092,6 +3262,13 @@ type OperationGetKSKResponse struct {
 	Return *StringArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
+// Operation wrapper for GetLatestMigrationLog.
+// OperationGetLatestMigrationLogResponse was auto-generated from
+// WSDL.
+type OperationGetLatestMigrationLogResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
 // Operation wrapper for GetLinkedEntities.
 // OperationGetLinkedEntities was auto-generated from WSDL.
 type OperationGetLinkedEntities struct {
@@ -3105,6 +3282,34 @@ type OperationGetLinkedEntities struct {
 // OperationGetLinkedEntitiesResponse was auto-generated from WSDL.
 type OperationGetLinkedEntitiesResponse struct {
 	Return *APIEntityArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetLinkedEntitiesEx.
+// OperationGetLinkedEntitiesEx was auto-generated from WSDL.
+type OperationGetLinkedEntitiesEx struct {
+	GetLinkedEntitiesJson *string `xml:"getLinkedEntitiesJson,omitempty" json:"getLinkedEntitiesJson,omitempty" yaml:"getLinkedEntitiesJson,omitempty"`
+}
+
+// Operation wrapper for GetLinkedEntitiesEx.
+// OperationGetLinkedEntitiesExResponse was auto-generated from
+// WSDL.
+type OperationGetLinkedEntitiesExResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetLinkedIP4ObjectConflicts.
+// OperationGetLinkedIP4ObjectConflicts was auto-generated from
+// WSDL.
+type OperationGetLinkedIP4ObjectConflicts struct {
+	TemplateId *int64 `xml:"templateId,omitempty" json:"templateId,omitempty" yaml:"templateId,omitempty"`
+	EntityId   *int64 `xml:"entityId,omitempty" json:"entityId,omitempty" yaml:"entityId,omitempty"`
+}
+
+// Operation wrapper for GetLinkedIP4ObjectConflicts.
+// OperationGetLinkedIP4ObjectConflictsResponse was auto-generated
+// from WSDL.
+type OperationGetLinkedIP4ObjectConflictsResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for GetLinkedNetworkConflicts.
@@ -3217,6 +3422,21 @@ type OperationGetNextAvailableIP4Network struct {
 // from WSDL.
 type OperationGetNextAvailableIP4NetworkResponse struct {
 	Return *int64 `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetNextAvailableIP6Address.
+// OperationGetNextAvailableIP6Address was auto-generated from
+// WSDL.
+type OperationGetNextAvailableIP6Address struct {
+	ParentId   *int64  `xml:"parentId,omitempty" json:"parentId,omitempty" yaml:"parentId,omitempty"`
+	Properties *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
+}
+
+// Operation wrapper for GetNextAvailableIP6Address.
+// OperationGetNextAvailableIP6AddressResponse was auto-generated
+// from WSDL.
+type OperationGetNextAvailableIP6AddressResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for GetNextAvailableIPRange.
@@ -3354,6 +3574,32 @@ type OperationGetServerForRoleResponse struct {
 	Return *APIEntity `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
+// Operation wrapper for GetServerServices.
+// OperationGetServerServices was auto-generated from WSDL.
+type OperationGetServerServices struct {
+	ServerId *int64 `xml:"serverId,omitempty" json:"serverId,omitempty" yaml:"serverId,omitempty"`
+}
+
+// Operation wrapper for GetServerServices.
+// OperationGetServerServicesResponse was auto-generated from WSDL.
+type OperationGetServerServicesResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetServerServicesConfigurationStatus.
+// OperationGetServerServicesConfigurationStatus was auto-generated
+// from WSDL.
+type OperationGetServerServicesConfigurationStatus struct {
+	ConfigurationToken *string `xml:"configurationToken,omitempty" json:"configurationToken,omitempty" yaml:"configurationToken,omitempty"`
+}
+
+// Operation wrapper for GetServerServicesConfigurationStatus.
+// OperationGetServerServicesConfigurationStatusResponse was auto-generated
+// from WSDL.
+type OperationGetServerServicesConfigurationStatusResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
 // Operation wrapper for GetSharedNetworks.
 // OperationGetSharedNetworks was auto-generated from WSDL.
 type OperationGetSharedNetworks struct {
@@ -3397,6 +3643,19 @@ type OperationGetUserDefinedFields struct {
 // WSDL.
 type OperationGetUserDefinedFieldsResponse struct {
 	Return *APIUserDefinedFieldArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetUserDefinedLink.
+// OperationGetUserDefinedLink was auto-generated from WSDL.
+type OperationGetUserDefinedLink struct {
+	GetLinkDefinitionJson *string `xml:"getLinkDefinitionJson,omitempty" json:"getLinkDefinitionJson,omitempty" yaml:"getLinkDefinitionJson,omitempty"`
+}
+
+// Operation wrapper for GetUserDefinedLink.
+// OperationGetUserDefinedLinkResponse was auto-generated from
+// WSDL.
+type OperationGetUserDefinedLinkResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for GetZonesByHint.
@@ -3467,6 +3726,17 @@ type OperationLinkEntities struct {
 // Operation wrapper for LinkEntities.
 // OperationLinkEntitiesResponse was auto-generated from WSDL.
 type OperationLinkEntitiesResponse struct {
+}
+
+// Operation wrapper for LinkEntitiesEx.
+// OperationLinkEntitiesEx was auto-generated from WSDL.
+type OperationLinkEntitiesEx struct {
+	LinkEntitiesJson *string `xml:"linkEntitiesJson,omitempty" json:"linkEntitiesJson,omitempty" yaml:"linkEntitiesJson,omitempty"`
+}
+
+// Operation wrapper for LinkEntitiesEx.
+// OperationLinkEntitiesExResponse was auto-generated from WSDL.
+type OperationLinkEntitiesExResponse struct {
 }
 
 // Operation wrapper for Login.
@@ -3866,6 +4136,20 @@ type OperationUnassignIP4NetworkTemplate struct {
 type OperationUnassignIP4NetworkTemplateResponse struct {
 }
 
+// Operation wrapper for UnassignIP4Template.
+// OperationUnassignIP4Template was auto-generated from WSDL.
+type OperationUnassignIP4Template struct {
+	TemplateRecipientId *int64  `xml:"templateRecipientId,omitempty" json:"templateRecipientId,omitempty" yaml:"templateRecipientId,omitempty"`
+	TemplateId          *int64  `xml:"templateId,omitempty" json:"templateId,omitempty" yaml:"templateId,omitempty"`
+	Properties          *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
+}
+
+// Operation wrapper for UnassignIP4Template.
+// OperationUnassignIP4TemplateResponse was auto-generated from
+// WSDL.
+type OperationUnassignIP4TemplateResponse struct {
+}
+
 // Operation wrapper for UnlinkEntities.
 // OperationUnlinkEntities was auto-generated from WSDL.
 type OperationUnlinkEntities struct {
@@ -3877,6 +4161,17 @@ type OperationUnlinkEntities struct {
 // Operation wrapper for UnlinkEntities.
 // OperationUnlinkEntitiesResponse was auto-generated from WSDL.
 type OperationUnlinkEntitiesResponse struct {
+}
+
+// Operation wrapper for UnlinkEntitiesEx.
+// OperationUnlinkEntitiesEx was auto-generated from WSDL.
+type OperationUnlinkEntitiesEx struct {
+	UnlinkEntitiesJson *string `xml:"unlinkEntitiesJson,omitempty" json:"unlinkEntitiesJson,omitempty" yaml:"unlinkEntitiesJson,omitempty"`
+}
+
+// Operation wrapper for UnlinkEntitiesEx.
+// OperationUnlinkEntitiesExResponse was auto-generated from WSDL.
+type OperationUnlinkEntitiesExResponse struct {
 }
 
 // Operation wrapper for UnshareNetwork.
@@ -4100,6 +4395,26 @@ type OperationUpdateRawDeploymentOption struct {
 type OperationUpdateRawDeploymentOptionResponse struct {
 }
 
+// Operation wrapper for UpdateRetentionSettings.
+// OperationUpdateRetentionSettings was auto-generated from WSDL.
+type OperationUpdateRetentionSettings struct {
+	Admin              *int  `xml:"admin,omitempty" json:"admin,omitempty" yaml:"admin,omitempty"`
+	UpdateAdmin        *bool `xml:"updateAdmin,omitempty" json:"updateAdmin,omitempty" yaml:"updateAdmin,omitempty"`
+	SessionEvent       *int  `xml:"sessionEvent,omitempty" json:"sessionEvent,omitempty" yaml:"sessionEvent,omitempty"`
+	UpdateSessionEvent *bool `xml:"updateSessionEvent,omitempty" json:"updateSessionEvent,omitempty" yaml:"updateSessionEvent,omitempty"`
+	Ddns               *int  `xml:"ddns,omitempty" json:"ddns,omitempty" yaml:"ddns,omitempty"`
+	UpdateDdns         *bool `xml:"updateDdns,omitempty" json:"updateDdns,omitempty" yaml:"updateDdns,omitempty"`
+	Dhcp               *int  `xml:"dhcp,omitempty" json:"dhcp,omitempty" yaml:"dhcp,omitempty"`
+	UpdateDhcp         *bool `xml:"updateDhcp,omitempty" json:"updateDhcp,omitempty" yaml:"updateDhcp,omitempty"`
+}
+
+// Operation wrapper for UpdateRetentionSettings.
+// OperationUpdateRetentionSettingsResponse was auto-generated
+// from WSDL.
+type OperationUpdateRetentionSettingsResponse struct {
+	Return *IntArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
 // Operation wrapper for UpdateUserDefinedField.
 // OperationUpdateUserDefinedField was auto-generated from WSDL.
 type OperationUpdateUserDefinedField struct {
@@ -4111,6 +4426,18 @@ type OperationUpdateUserDefinedField struct {
 // OperationUpdateUserDefinedFieldResponse was auto-generated from
 // WSDL.
 type OperationUpdateUserDefinedFieldResponse struct {
+}
+
+// Operation wrapper for UpdateUserDefinedLink.
+// OperationUpdateUserDefinedLink was auto-generated from WSDL.
+type OperationUpdateUserDefinedLink struct {
+	UpdateLinkDefinitionJson *string `xml:"updateLinkDefinitionJson,omitempty" json:"updateLinkDefinitionJson,omitempty" yaml:"updateLinkDefinitionJson,omitempty"`
+}
+
+// Operation wrapper for UpdateUserDefinedLink.
+// OperationUpdateUserDefinedLinkResponse was auto-generated from
+// WSDL.
+type OperationUpdateUserDefinedLinkResponse struct {
 }
 
 // Operation wrapper for UpdateUserPassword.
@@ -4137,6 +4464,33 @@ type OperationUpdateWithOptions struct {
 // Operation wrapper for UpdateWithOptions.
 // OperationUpdateWithOptionsResponse was auto-generated from WSDL.
 type OperationUpdateWithOptionsResponse struct {
+}
+
+// Operation wrapper for UploadMigrationFile.
+// OperationUploadMigrationFile was auto-generated from WSDL.
+type OperationUploadMigrationFile struct {
+	Filename *string `xml:"filename,omitempty" json:"filename,omitempty" yaml:"filename,omitempty"`
+	Data     *[]byte `xml:"data,omitempty" json:"data,omitempty" yaml:"data,omitempty"`
+}
+
+// Operation wrapper for UploadMigrationFile.
+// OperationUploadMigrationFileResponse was auto-generated from
+// WSDL.
+type OperationUploadMigrationFileResponse struct {
+}
+
+// Operation wrapper for UploadResponsePolicyFile.
+// OperationUploadResponsePolicyFile was auto-generated from WSDL.
+type OperationUploadResponsePolicyFile struct {
+	ParentId *int64  `xml:"parentId,omitempty" json:"parentId,omitempty" yaml:"parentId,omitempty"`
+	Data     *[]byte `xml:"data,omitempty" json:"data,omitempty" yaml:"data,omitempty"`
+}
+
+// Operation wrapper for UploadResponsePolicyFile.
+// OperationUploadResponsePolicyFileResponse was auto-generated
+// from WSDL.
+type OperationUploadResponsePolicyFileResponse struct {
+	Return *[]byte `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for UploadResponsePolicyItems.
@@ -5002,6 +5356,27 @@ func (p *proteusAPI) AddIP4ReconciliationPolicy(parentId int64, name string, pro
 	return *γ.M.Return, nil
 }
 
+// AddIP4Template was auto-generated from WSDL.
+func (p *proteusAPI) AddIP4Template(configurationId int64, name string, properties string) (int64, error) {
+	α := struct {
+		M OperationAddIP4Template `xml:"tns:addIP4Template"`
+	}{
+		OperationAddIP4Template{
+			&configurationId,
+			&name,
+			&properties,
+		},
+	}
+
+	γ := struct {
+		M OperationAddIP4TemplateResponse `xml:"addIP4TemplateResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("AddIP4Template", α, &γ); err != nil {
+		return 0, err
+	}
+	return *γ.M.Return, nil
+}
+
 // AddIP6Address was auto-generated from WSDL.
 func (p *proteusAPI) AddIP6Address(containerId int64, address string, _type string, name string, properties string) (int64, error) {
 	α := struct {
@@ -5559,6 +5934,25 @@ func (p *proteusAPI) AddUserDefinedField(_type string, udf *APIUserDefinedField)
 	return nil
 }
 
+// AddUserDefinedLink was auto-generated from WSDL.
+func (p *proteusAPI) AddUserDefinedLink(addLinkDefinitionJson string) error {
+	α := struct {
+		M OperationAddUserDefinedLink `xml:"tns:addUserDefinedLink"`
+	}{
+		OperationAddUserDefinedLink{
+			&addLinkDefinitionJson,
+		},
+	}
+
+	γ := struct {
+		M OperationAddUserDefinedLinkResponse `xml:"addUserDefinedLinkResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("AddUserDefinedLink", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
 // AddUserGroup was auto-generated from WSDL.
 func (p *proteusAPI) AddUserGroup(name string, properties string) (int64, error) {
 	α := struct {
@@ -5710,6 +6104,27 @@ func (p *proteusAPI) ApplyIP4NetworkTemplate(templateId int64, networkId int64, 
 	return *γ.M.Return, nil
 }
 
+// ApplyIP4Template was auto-generated from WSDL.
+func (p *proteusAPI) ApplyIP4Template(templateId int64, recipientId int64, properties string) (string, error) {
+	α := struct {
+		M OperationApplyIP4Template `xml:"tns:applyIP4Template"`
+	}{
+		OperationApplyIP4Template{
+			&templateId,
+			&recipientId,
+			&properties,
+		},
+	}
+
+	γ := struct {
+		M OperationApplyIP4TemplateResponse `xml:"applyIP4TemplateResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("ApplyIP4Template", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
+}
+
 // AssignIP4Address was auto-generated from WSDL.
 func (p *proteusAPI) AssignIP4Address(configurationId int64, ip4Address string, macAddress string, hostInfo string, action string, properties string) (int64, error) {
 	α := struct {
@@ -5750,6 +6165,27 @@ func (p *proteusAPI) AssignIP4NetworkTemplate(networkId int64, templateId int64,
 		M OperationAssignIP4NetworkTemplateResponse `xml:"assignIP4NetworkTemplateResponse"`
 	}{}
 	if err := p.cli.RoundTripWithAction("AssignIP4NetworkTemplate", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
+// AssignIP4Template was auto-generated from WSDL.
+func (p *proteusAPI) AssignIP4Template(templateRecipientId int64, templateId int64, properties string) error {
+	α := struct {
+		M OperationAssignIP4Template `xml:"tns:assignIP4Template"`
+	}{
+		OperationAssignIP4Template{
+			&templateRecipientId,
+			&templateId,
+			&properties,
+		},
+	}
+
+	γ := struct {
+		M OperationAssignIP4TemplateResponse `xml:"assignIP4TemplateResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("AssignIP4Template", α, &γ); err != nil {
 		return err
 	}
 	return nil
@@ -5922,6 +6358,25 @@ func (p *proteusAPI) ClearIP6Address(addressId int64) (bool, error) {
 	return *γ.M.Return, nil
 }
 
+// ConfigureAuditLogExport was auto-generated from WSDL.
+func (p *proteusAPI) ConfigureAuditLogExport(auditConfiguration string) error {
+	α := struct {
+		M OperationConfigureAuditLogExport `xml:"tns:configureAuditLogExport"`
+	}{
+		OperationConfigureAuditLogExport{
+			&auditConfiguration,
+		},
+	}
+
+	γ := struct {
+		M OperationConfigureAuditLogExportResponse `xml:"configureAuditLogExportResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("ConfigureAuditLogExport", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
 // ConfigureReplication was auto-generated from WSDL.
 func (p *proteusAPI) ConfigureReplication(standbyServer string, compressReplication bool, replicationQueueThreshold int64, replicationBreakThreshold int64, properties string) error {
 	α := struct {
@@ -5943,6 +6398,26 @@ func (p *proteusAPI) ConfigureReplication(standbyServer string, compressReplicat
 		return err
 	}
 	return nil
+}
+
+// ConfigureServerServices was auto-generated from WSDL.
+func (p *proteusAPI) ConfigureServerServices(serverIds *LongArray, configuration string) (string, error) {
+	α := struct {
+		M OperationConfigureServerServices `xml:"tns:configureServerServices"`
+	}{
+		OperationConfigureServerServices{
+			serverIds,
+			&configuration,
+		},
+	}
+
+	γ := struct {
+		M OperationConfigureServerServicesResponse `xml:"configureServerServicesResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("ConfigureServerServices", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // ConfigureStreamingReplication was auto-generated from WSDL.
@@ -6302,6 +6777,25 @@ func (p *proteusAPI) DeleteUserDefinedField(_type string, name string) error {
 	return nil
 }
 
+// DeleteUserDefinedLink was auto-generated from WSDL.
+func (p *proteusAPI) DeleteUserDefinedLink(deleteLinkDefinitionJson string) error {
+	α := struct {
+		M OperationDeleteUserDefinedLink `xml:"tns:deleteUserDefinedLink"`
+	}{
+		OperationDeleteUserDefinedLink{
+			&deleteLinkDefinitionJson,
+		},
+	}
+
+	γ := struct {
+		M OperationDeleteUserDefinedLinkResponse `xml:"deleteUserDefinedLinkResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("DeleteUserDefinedLink", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
 // DeleteWithOptions was auto-generated from WSDL.
 func (p *proteusAPI) DeleteWithOptions(objectId int64, options string) error {
 	α := struct {
@@ -6622,6 +7116,23 @@ func (p *proteusAPI) GetAllUsedLocations() (*APIEntityArray, error) {
 		return nil, err
 	}
 	return γ.M.Return, nil
+}
+
+// GetAuditLogExportStatus was auto-generated from WSDL.
+func (p *proteusAPI) GetAuditLogExportStatus() (string, error) {
+	α := struct {
+		M struct{} `xml:"tns:getAuditLogExportStatus"`
+	}{
+		struct{}{},
+	}
+
+	γ := struct {
+		M OperationGetAuditLogExportStatusResponse `xml:"getAuditLogExportStatusResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetAuditLogExportStatus", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // GetConfigurationGroups was auto-generated from WSDL.
@@ -7428,6 +7939,23 @@ func (p *proteusAPI) GetKSK(entityId int64, format string) (*StringArray, error)
 	return γ.M.Return, nil
 }
 
+// GetLatestMigrationLog was auto-generated from WSDL.
+func (p *proteusAPI) GetLatestMigrationLog() (string, error) {
+	α := struct {
+		M struct{} `xml:"tns:getLatestMigrationLog"`
+	}{
+		struct{}{},
+	}
+
+	γ := struct {
+		M OperationGetLatestMigrationLogResponse `xml:"getLatestMigrationLogResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetLatestMigrationLog", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
+}
+
 // GetLinkedEntities was auto-generated from WSDL.
 func (p *proteusAPI) GetLinkedEntities(entityId int64, _type string, start int, count int) (*APIEntityArray, error) {
 	α := struct {
@@ -7448,6 +7976,45 @@ func (p *proteusAPI) GetLinkedEntities(entityId int64, _type string, start int, 
 		return nil, err
 	}
 	return γ.M.Return, nil
+}
+
+// GetLinkedEntitiesEx was auto-generated from WSDL.
+func (p *proteusAPI) GetLinkedEntitiesEx(getLinkedEntitiesJson string) (string, error) {
+	α := struct {
+		M OperationGetLinkedEntitiesEx `xml:"tns:getLinkedEntitiesEx"`
+	}{
+		OperationGetLinkedEntitiesEx{
+			&getLinkedEntitiesJson,
+		},
+	}
+
+	γ := struct {
+		M OperationGetLinkedEntitiesExResponse `xml:"getLinkedEntitiesExResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetLinkedEntitiesEx", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
+}
+
+// GetLinkedIP4ObjectConflicts was auto-generated from WSDL.
+func (p *proteusAPI) GetLinkedIP4ObjectConflicts(templateId int64, entityId int64) (string, error) {
+	α := struct {
+		M OperationGetLinkedIP4ObjectConflicts `xml:"tns:getLinkedIP4ObjectConflicts"`
+	}{
+		OperationGetLinkedIP4ObjectConflicts{
+			&templateId,
+			&entityId,
+		},
+	}
+
+	γ := struct {
+		M OperationGetLinkedIP4ObjectConflictsResponse `xml:"getLinkedIP4ObjectConflictsResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetLinkedIP4ObjectConflicts", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // GetLinkedNetworkConflicts was auto-generated from WSDL.
@@ -7605,6 +8172,26 @@ func (p *proteusAPI) GetNextAvailableIP4Network(parentId int64, size int64, isLa
 	}{}
 	if err := p.cli.RoundTripWithAction("GetNextAvailableIP4Network", α, &γ); err != nil {
 		return 0, err
+	}
+	return *γ.M.Return, nil
+}
+
+// GetNextAvailableIP6Address was auto-generated from WSDL.
+func (p *proteusAPI) GetNextAvailableIP6Address(parentId int64, properties string) (string, error) {
+	α := struct {
+		M OperationGetNextAvailableIP6Address `xml:"tns:getNextAvailableIP6Address"`
+	}{
+		OperationGetNextAvailableIP6Address{
+			&parentId,
+			&properties,
+		},
+	}
+
+	γ := struct {
+		M OperationGetNextAvailableIP6AddressResponse `xml:"getNextAvailableIP6AddressResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetNextAvailableIP6Address", α, &γ); err != nil {
+		return "", err
 	}
 	return *γ.M.Return, nil
 }
@@ -7809,6 +8396,45 @@ func (p *proteusAPI) GetServerForRole(roleId int64) (*APIEntity, error) {
 	return γ.M.Return, nil
 }
 
+// GetServerServices was auto-generated from WSDL.
+func (p *proteusAPI) GetServerServices(serverId int64) (string, error) {
+	α := struct {
+		M OperationGetServerServices `xml:"tns:getServerServices"`
+	}{
+		OperationGetServerServices{
+			&serverId,
+		},
+	}
+
+	γ := struct {
+		M OperationGetServerServicesResponse `xml:"getServerServicesResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetServerServices", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
+}
+
+// GetServerServicesConfigurationStatus was auto-generated from
+// WSDL.
+func (p *proteusAPI) GetServerServicesConfigurationStatus(configurationToken string) (string, error) {
+	α := struct {
+		M OperationGetServerServicesConfigurationStatus `xml:"tns:getServerServicesConfigurationStatus"`
+	}{
+		OperationGetServerServicesConfigurationStatus{
+			&configurationToken,
+		},
+	}
+
+	γ := struct {
+		M OperationGetServerServicesConfigurationStatusResponse `xml:"getServerServicesConfigurationStatusResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetServerServicesConfigurationStatus", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
+}
+
 // GetSharedNetworks was auto-generated from WSDL.
 func (p *proteusAPI) GetSharedNetworks(tagId int64) (*APIEntityArray, error) {
 	α := struct {
@@ -7882,6 +8508,25 @@ func (p *proteusAPI) GetUserDefinedFields(_type string, requiredFieldsOnly bool)
 		return nil, err
 	}
 	return γ.M.Return, nil
+}
+
+// GetUserDefinedLink was auto-generated from WSDL.
+func (p *proteusAPI) GetUserDefinedLink(getLinkDefinitionJson string) (string, error) {
+	α := struct {
+		M OperationGetUserDefinedLink `xml:"tns:getUserDefinedLink"`
+	}{
+		OperationGetUserDefinedLink{
+			&getLinkDefinitionJson,
+		},
+	}
+
+	γ := struct {
+		M OperationGetUserDefinedLinkResponse `xml:"getUserDefinedLinkResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetUserDefinedLink", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // GetZonesByHint was auto-generated from WSDL.
@@ -7984,6 +8629,25 @@ func (p *proteusAPI) LinkEntities(entity1Id int64, entity2Id int64, properties s
 		M OperationLinkEntitiesResponse `xml:"linkEntitiesResponse"`
 	}{}
 	if err := p.cli.RoundTripWithAction("LinkEntities", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
+// LinkEntitiesEx was auto-generated from WSDL.
+func (p *proteusAPI) LinkEntitiesEx(linkEntitiesJson string) error {
+	α := struct {
+		M OperationLinkEntitiesEx `xml:"tns:linkEntitiesEx"`
+	}{
+		OperationLinkEntitiesEx{
+			&linkEntitiesJson,
+		},
+	}
+
+	γ := struct {
+		M OperationLinkEntitiesExResponse `xml:"linkEntitiesExResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("LinkEntitiesEx", α, &γ); err != nil {
 		return err
 	}
 	return nil
@@ -8608,6 +9272,27 @@ func (p *proteusAPI) UnassignIP4NetworkTemplate(networkId int64, templateId int6
 	return nil
 }
 
+// UnassignIP4Template was auto-generated from WSDL.
+func (p *proteusAPI) UnassignIP4Template(templateRecipientId int64, templateId int64, properties string) error {
+	α := struct {
+		M OperationUnassignIP4Template `xml:"tns:unassignIP4Template"`
+	}{
+		OperationUnassignIP4Template{
+			&templateRecipientId,
+			&templateId,
+			&properties,
+		},
+	}
+
+	γ := struct {
+		M OperationUnassignIP4TemplateResponse `xml:"unassignIP4TemplateResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UnassignIP4Template", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
 // UnlinkEntities was auto-generated from WSDL.
 func (p *proteusAPI) UnlinkEntities(entity1Id int64, entity2Id int64, properties string) error {
 	α := struct {
@@ -8624,6 +9309,25 @@ func (p *proteusAPI) UnlinkEntities(entity1Id int64, entity2Id int64, properties
 		M OperationUnlinkEntitiesResponse `xml:"unlinkEntitiesResponse"`
 	}{}
 	if err := p.cli.RoundTripWithAction("UnlinkEntities", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UnlinkEntitiesEx was auto-generated from WSDL.
+func (p *proteusAPI) UnlinkEntitiesEx(unlinkEntitiesJson string) error {
+	α := struct {
+		M OperationUnlinkEntitiesEx `xml:"tns:unlinkEntitiesEx"`
+	}{
+		OperationUnlinkEntitiesEx{
+			&unlinkEntitiesJson,
+		},
+	}
+
+	γ := struct {
+		M OperationUnlinkEntitiesExResponse `xml:"unlinkEntitiesExResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UnlinkEntitiesEx", α, &γ); err != nil {
 		return err
 	}
 	return nil
@@ -8965,6 +9669,32 @@ func (p *proteusAPI) UpdateRawDeploymentOption(option *APIDeploymentOption) erro
 	return nil
 }
 
+// UpdateRetentionSettings was auto-generated from WSDL.
+func (p *proteusAPI) UpdateRetentionSettings(admin int, updateAdmin bool, sessionEvent int, updateSessionEvent bool, ddns int, updateDdns bool, dhcp int, updateDhcp bool) (*IntArray, error) {
+	α := struct {
+		M OperationUpdateRetentionSettings `xml:"tns:updateRetentionSettings"`
+	}{
+		OperationUpdateRetentionSettings{
+			&admin,
+			&updateAdmin,
+			&sessionEvent,
+			&updateSessionEvent,
+			&ddns,
+			&updateDdns,
+			&dhcp,
+			&updateDhcp,
+		},
+	}
+
+	γ := struct {
+		M OperationUpdateRetentionSettingsResponse `xml:"updateRetentionSettingsResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UpdateRetentionSettings", α, &γ); err != nil {
+		return nil, err
+	}
+	return γ.M.Return, nil
+}
+
 // UpdateUserDefinedField was auto-generated from WSDL.
 func (p *proteusAPI) UpdateUserDefinedField(_type string, udf *APIUserDefinedField) error {
 	α := struct {
@@ -8980,6 +9710,25 @@ func (p *proteusAPI) UpdateUserDefinedField(_type string, udf *APIUserDefinedFie
 		M OperationUpdateUserDefinedFieldResponse `xml:"updateUserDefinedFieldResponse"`
 	}{}
 	if err := p.cli.RoundTripWithAction("UpdateUserDefinedField", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UpdateUserDefinedLink was auto-generated from WSDL.
+func (p *proteusAPI) UpdateUserDefinedLink(updateLinkDefinitionJson string) error {
+	α := struct {
+		M OperationUpdateUserDefinedLink `xml:"tns:updateUserDefinedLink"`
+	}{
+		OperationUpdateUserDefinedLink{
+			&updateLinkDefinitionJson,
+		},
+	}
+
+	γ := struct {
+		M OperationUpdateUserDefinedLinkResponse `xml:"updateUserDefinedLinkResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UpdateUserDefinedLink", α, &γ); err != nil {
 		return err
 	}
 	return nil
@@ -9024,6 +9773,46 @@ func (p *proteusAPI) UpdateWithOptions(entity *APIEntity, options string) error 
 		return err
 	}
 	return nil
+}
+
+// UploadMigrationFile was auto-generated from WSDL.
+func (p *proteusAPI) UploadMigrationFile(filename string, data []byte) error {
+	α := struct {
+		M OperationUploadMigrationFile `xml:"tns:uploadMigrationFile"`
+	}{
+		OperationUploadMigrationFile{
+			&filename,
+			&data,
+		},
+	}
+
+	γ := struct {
+		M OperationUploadMigrationFileResponse `xml:"uploadMigrationFileResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UploadMigrationFile", α, &γ); err != nil {
+		return err
+	}
+	return nil
+}
+
+// UploadResponsePolicyFile was auto-generated from WSDL.
+func (p *proteusAPI) UploadResponsePolicyFile(parentId int64, data []byte) ([]byte, error) {
+	α := struct {
+		M OperationUploadResponsePolicyFile `xml:"tns:uploadResponsePolicyFile"`
+	}{
+		OperationUploadResponsePolicyFile{
+			&parentId,
+			&data,
+		},
+	}
+
+	γ := struct {
+		M OperationUploadResponsePolicyFileResponse `xml:"uploadResponsePolicyFileResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UploadResponsePolicyFile", α, &γ); err != nil {
+		return nil, err
+	}
+	return *γ.M.Return, nil
 }
 
 // UploadResponsePolicyItems was auto-generated from WSDL.
