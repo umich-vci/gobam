@@ -3,40 +3,10 @@ package gobam
 import (
 	"crypto/tls"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/fiorix/wsdl2go/soap"
-	multierror "github.com/hashicorp/go-multierror"
 )
-
-// LogoutClientIfError will log out the client session if an error is passed in
-func LogoutClientIfError(client ProteusAPI, err error, msg string) error {
-	if err != nil {
-		var result error
-		result = multierror.Append(err)
-
-		if lerr := client.Logout(); lerr != nil {
-			result = multierror.Append(lerr)
-		}
-		log.Printf("[INFO] BlueCat Logout was successful")
-		return fmt.Errorf(msg, result)
-	}
-	return nil
-}
-
-// LogoutClientWithError will log out the client session with the specified error message
-func LogoutClientWithError(client ProteusAPI, msg string) error {
-	var result error
-	err := fmt.Errorf(msg)
-	result = multierror.Append(err)
-
-	if lerr := client.Logout(); lerr != nil {
-		result = multierror.Append(lerr)
-	}
-	log.Printf("[INFO] BlueCat Logout was successful")
-	return result
-}
 
 // Client logs you in to BAM and keeps your session cookie
 func Client(username string, password string, endpoint string, insecure bool) (ProteusAPI, error) {
@@ -57,12 +27,10 @@ func Client(username string, password string, endpoint string, insecure bool) (P
 	}
 
 	soapService := NewProteusAPI(&cli)
-	log.Printf("[INFO] BlueCat URL is: %s", cli.URL)
 	err := soapService.Login(username, password)
 	if err != nil {
 		return nil, fmt.Errorf("Login error: %s", err)
 	}
-	log.Printf("[INFO] BlueCat Login was successful")
 
 	return soapService, nil
 }
