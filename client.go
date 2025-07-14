@@ -272,9 +272,6 @@ type ProteusAPI interface {
 	// ConfigureAuditLogExport was auto-generated from WSDL.
 	ConfigureAuditLogExport(auditConfiguration string) error
 
-	// ConfigureReplication was auto-generated from WSDL.
-	ConfigureReplication(standbyServer string, compressReplication bool, replicationQueueThreshold int64, replicationBreakThreshold int64, properties string) error
-
 	// ConfigureServerServices was auto-generated from WSDL.
 	ConfigureServerServices(serverIds *LongArray, configuration string) (string, error)
 
@@ -506,6 +503,9 @@ type ProteusAPI interface {
 
 	// GetLinkedEntities was auto-generated from WSDL.
 	GetLinkedEntities(entityId int64, _type string, start int, count int) (*APIEntityArray, error)
+
+	// GetLinkedEntitiesByUDL was auto-generated from WSDL.
+	GetLinkedEntitiesByUDL(getLinkedEntitiesByUdlJson string) (string, error)
 
 	// GetLinkedEntitiesEx was auto-generated from WSDL.
 	GetLinkedEntitiesEx(getLinkedEntitiesJson string) (string, error)
@@ -774,6 +774,9 @@ type ProteusAPI interface {
 
 	// UpdateWithOptions was auto-generated from WSDL.
 	UpdateWithOptions(entity *APIEntity, options string) error
+
+	// UploadDockerImage was auto-generated from WSDL.
+	UploadDockerImage(filename string, data []byte, serverId int64) (string, error)
 
 	// UploadMigrationFile was auto-generated from WSDL.
 	UploadMigrationFile(filename string, data []byte) error
@@ -2196,22 +2199,6 @@ type OperationConfigureAuditLogExport struct {
 type OperationConfigureAuditLogExportResponse struct {
 }
 
-// Operation wrapper for ConfigureReplication.
-// OperationConfigureReplication was auto-generated from WSDL.
-type OperationConfigureReplication struct {
-	StandbyServer             *string `xml:"standbyServer,omitempty" json:"standbyServer,omitempty" yaml:"standbyServer,omitempty"`
-	CompressReplication       *bool   `xml:"compressReplication,omitempty" json:"compressReplication,omitempty" yaml:"compressReplication,omitempty"`
-	ReplicationQueueThreshold *int64  `xml:"replicationQueueThreshold,omitempty" json:"replicationQueueThreshold,omitempty" yaml:"replicationQueueThreshold,omitempty"`
-	ReplicationBreakThreshold *int64  `xml:"replicationBreakThreshold,omitempty" json:"replicationBreakThreshold,omitempty" yaml:"replicationBreakThreshold,omitempty"`
-	Properties                *string `xml:"properties,omitempty" json:"properties,omitempty" yaml:"properties,omitempty"`
-}
-
-// Operation wrapper for ConfigureReplication.
-// OperationConfigureReplicationResponse was auto-generated from
-// WSDL.
-type OperationConfigureReplicationResponse struct {
-}
-
 // Operation wrapper for ConfigureServerServices.
 // OperationConfigureServerServices was auto-generated from WSDL.
 type OperationConfigureServerServices struct {
@@ -3282,6 +3269,19 @@ type OperationGetLinkedEntities struct {
 // OperationGetLinkedEntitiesResponse was auto-generated from WSDL.
 type OperationGetLinkedEntitiesResponse struct {
 	Return *APIEntityArray `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
+}
+
+// Operation wrapper for GetLinkedEntitiesByUDL.
+// OperationGetLinkedEntitiesByUDL was auto-generated from WSDL.
+type OperationGetLinkedEntitiesByUDL struct {
+	GetLinkedEntitiesByUdlJson *string `xml:"getLinkedEntitiesByUdlJson,omitempty" json:"getLinkedEntitiesByUdlJson,omitempty" yaml:"getLinkedEntitiesByUdlJson,omitempty"`
+}
+
+// Operation wrapper for GetLinkedEntitiesByUDL.
+// OperationGetLinkedEntitiesByUDLResponse was auto-generated from
+// WSDL.
+type OperationGetLinkedEntitiesByUDLResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for GetLinkedEntitiesEx.
@@ -4464,6 +4464,20 @@ type OperationUpdateWithOptions struct {
 // Operation wrapper for UpdateWithOptions.
 // OperationUpdateWithOptionsResponse was auto-generated from WSDL.
 type OperationUpdateWithOptionsResponse struct {
+}
+
+// Operation wrapper for UploadDockerImage.
+// OperationUploadDockerImage was auto-generated from WSDL.
+type OperationUploadDockerImage struct {
+	Filename *string `xml:"filename,omitempty" json:"filename,omitempty" yaml:"filename,omitempty"`
+	Data     *[]byte `xml:"data,omitempty" json:"data,omitempty" yaml:"data,omitempty"`
+	ServerId *int64  `xml:"serverId,omitempty" json:"serverId,omitempty" yaml:"serverId,omitempty"`
+}
+
+// Operation wrapper for UploadDockerImage.
+// OperationUploadDockerImageResponse was auto-generated from WSDL.
+type OperationUploadDockerImageResponse struct {
+	Return *string `xml:"return,omitempty" json:"return,omitempty" yaml:"return,omitempty"`
 }
 
 // Operation wrapper for UploadMigrationFile.
@@ -6377,29 +6391,6 @@ func (p *proteusAPI) ConfigureAuditLogExport(auditConfiguration string) error {
 	return nil
 }
 
-// ConfigureReplication was auto-generated from WSDL.
-func (p *proteusAPI) ConfigureReplication(standbyServer string, compressReplication bool, replicationQueueThreshold int64, replicationBreakThreshold int64, properties string) error {
-	α := struct {
-		M OperationConfigureReplication `xml:"tns:configureReplication"`
-	}{
-		OperationConfigureReplication{
-			&standbyServer,
-			&compressReplication,
-			&replicationQueueThreshold,
-			&replicationBreakThreshold,
-			&properties,
-		},
-	}
-
-	γ := struct {
-		M OperationConfigureReplicationResponse `xml:"configureReplicationResponse"`
-	}{}
-	if err := p.cli.RoundTripWithAction("ConfigureReplication", α, &γ); err != nil {
-		return err
-	}
-	return nil
-}
-
 // ConfigureServerServices was auto-generated from WSDL.
 func (p *proteusAPI) ConfigureServerServices(serverIds *LongArray, configuration string) (string, error) {
 	α := struct {
@@ -7976,6 +7967,25 @@ func (p *proteusAPI) GetLinkedEntities(entityId int64, _type string, start int, 
 		return nil, err
 	}
 	return γ.M.Return, nil
+}
+
+// GetLinkedEntitiesByUDL was auto-generated from WSDL.
+func (p *proteusAPI) GetLinkedEntitiesByUDL(getLinkedEntitiesByUdlJson string) (string, error) {
+	α := struct {
+		M OperationGetLinkedEntitiesByUDL `xml:"tns:getLinkedEntitiesByUDL"`
+	}{
+		OperationGetLinkedEntitiesByUDL{
+			&getLinkedEntitiesByUdlJson,
+		},
+	}
+
+	γ := struct {
+		M OperationGetLinkedEntitiesByUDLResponse `xml:"getLinkedEntitiesByUDLResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("GetLinkedEntitiesByUDL", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // GetLinkedEntitiesEx was auto-generated from WSDL.
@@ -9773,6 +9783,27 @@ func (p *proteusAPI) UpdateWithOptions(entity *APIEntity, options string) error 
 		return err
 	}
 	return nil
+}
+
+// UploadDockerImage was auto-generated from WSDL.
+func (p *proteusAPI) UploadDockerImage(filename string, data []byte, serverId int64) (string, error) {
+	α := struct {
+		M OperationUploadDockerImage `xml:"tns:uploadDockerImage"`
+	}{
+		OperationUploadDockerImage{
+			&filename,
+			&data,
+			&serverId,
+		},
+	}
+
+	γ := struct {
+		M OperationUploadDockerImageResponse `xml:"uploadDockerImageResponse"`
+	}{}
+	if err := p.cli.RoundTripWithAction("UploadDockerImage", α, &γ); err != nil {
+		return "", err
+	}
+	return *γ.M.Return, nil
 }
 
 // UploadMigrationFile was auto-generated from WSDL.
