@@ -1,12 +1,10 @@
 module github.com/umich-vci/gobam
 
-go 1.23.0
+go 1.25.0
 
-toolchain go1.24.2
-
-require github.com/fiorix/wsdl2go v1.4.7
+require github.com/fiorix/wsdl2go v1.6.2
 
 require (
-	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/text v0.24.0 // indirect
+	golang.org/x/net v0.53.0 // indirect
+	golang.org/x/text v0.36.0 // indirect
 )
